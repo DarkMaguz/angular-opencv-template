@@ -4,7 +4,6 @@
 
 import os
 import subprocess
-import urllib.request
 
 # List of directories to create.
 DIRS = [
@@ -50,9 +49,14 @@ if __name__ == "__main__":
   
   print("Downloading Files...")
   for file in FILES:
-    if not os.path.isfile(file[1]):
-      print("\t" + file[0])
-      urllib.request.urlretrieve(file[0], file[1])
-  print("Done")
+    if not os.path.exists(file[1]):
+      print("\t" + file[0] + " -> " + file[1])
+      subprocess.run(["wget", "-O", file[1], file[0]])
+
+  if not os.path.exists("node_modules"):
+    print("Installing Dependencies...")
+    subprocess.run(["npm", "install"])
+  
+  print("Starting Server...")
   subprocess.run(["npm", "start"])
   
