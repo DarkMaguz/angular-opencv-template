@@ -1,0 +1,12 @@
+services:
+  opencvjs:
+    build: .
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/home/node/app
+    entrypoint:
+      - ./entrypoint.py
+    network_mode: "host"
