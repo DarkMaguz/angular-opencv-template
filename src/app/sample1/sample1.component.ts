@@ -4,11 +4,12 @@ import { OpencvModule } from '../opencv.module';
 declare var cv: any;
 
 @Component({
-  selector: 'app-opencv',
-  templateUrl: './opencv.component.html',
-  styleUrls: ['./opencv.component.scss'],
+  selector: 'app-sample1',
+  templateUrl: './sample1.component.html',
+  styleUrl: './sample1.component.scss'
 })
-export class OpencvComponent {
+export class Sample1Component {
+
 
   constructor() {
     OpencvModule.waitForOpenCv().finally(() => {

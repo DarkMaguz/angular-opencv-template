@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { OpencvComponent } from './opencv/opencv.component';
+import { Sample1Component } from './sample1/sample1.component';
 
 const routes: Routes = [
-  { path: 'opencv', component: OpencvComponent },
+  { path: 'sample1', component: Sample1Component },
 ];
 
 @NgModule({

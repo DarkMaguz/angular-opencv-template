@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OpencvComponent } from './opencv.component';
+import { Sample1Component } from './sample1.component';
 
-describe('OpencvComponent', () => {
-  let component: OpencvComponent;
-  let fixture: ComponentFixture<OpencvComponent>;
+describe('Sample1Component', () => {
+  let component: Sample1Component;
+  let fixture: ComponentFixture<Sample1Component>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [OpencvComponent]
+      declarations: [Sample1Component]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(OpencvComponent);
+    fixture = TestBed.createComponent(Sample1Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
