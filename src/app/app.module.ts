@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { OpencvComponent } from './opencv/opencv.component';
+import { OpencvModule } from './opencv.module';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,7 @@ import { OpencvComponent } from './opencv/opencv.component';
     OpencvComponent
   ],
   imports: [
+    OpencvModule,
     BrowserModule,
     AppRoutingModule
   ],

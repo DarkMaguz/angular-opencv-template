@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OpencvModule } from '../opencv.module';
 
 declare var cv: any;
 declare var Utils: any;
@@ -6,27 +7,12 @@ declare var Utils: any;
 @Component({
   selector: 'app-opencv',
   templateUrl: './opencv.component.html',
-  styleUrls: ['./opencv.component.scss']
+  styleUrls: ['./opencv.component.scss'],
 })
-export class OpencvComponent implements OnInit {
+export class OpencvComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
-    this.loadOpenCv();
-  }
-  // Function that loads the OpenCV.js library and initializes it.
-  async loadOpenCv() {
-    if (typeof cv === 'undefined') {
-      console.error('OpenCV.js is not loaded');
-      return;
-    }
-
-    // Set the callback function that will be invoked after the library is loaded
-    cv.onRuntimeInitialized = () => {
-      console.log('OpenCV.js is ready to use!');
-      // console.log('OpenCV.js version: ' + cv.getBuildInformation());
-
+  constructor() {
+    OpencvModule.waitForOpenCv().finally(() => {
       // Create an image element and load an image
       let imageElement = document.createElement('img');
       imageElement.src = '/TheBigBangTheory.jpg';
@@ -37,8 +23,9 @@ export class OpencvComponent implements OnInit {
           console.error('Error processing image: ', error);
         }
       };
-    };
+    });
   }
+
 
   // Function that draws the detected faces on an image.
   async processImage(imageElement: HTMLImageElement) {
@@ -50,29 +37,7 @@ export class OpencvComponent implements OnInit {
     cv.cvtColor(mat, grayMat, cv.COLOR_RGBA2GRAY);
 
     // Load the face detection classifier (Haar Cascade for frontal face)
-    const faceCascade = new cv.CascadeClassifier();
-    try {
-      const cascadeFile = "haarcascade_frontalface_default.xml"
-      // Use createFileFromUrl to load the xml file into OpenCV's virtual filesystem.
-      let utils = new Utils('errorMessage');
-      utils.createFileFromUrl(cascadeFile, "/models/" + cascadeFile, () => {
-        faceCascade.load(cascadeFile);
-      });
-    } catch (error) {
-      console.error('Error loading faceCascade files: ', error);
-    }
-
-    // Wait for the face detection classifier to be loaded.
-    let tickCount = 0;
-    while (faceCascade.empty()) {
-      console.log('Tick...');
-      await new Promise((resolve) => setTimeout(resolve, 100));
-      tickCount++;
-      if (tickCount > 20) {
-        console.error('Error loading faceCascade files: ');
-        return;
-      }
-    }
+    const faceCascade = await OpencvModule.loadCascadeClassifier('haarcascade_frontalface_default.xml');
 
     // Sanity check that the face cascade was loaded.
     if (faceCascade.empty()) {
@@ -104,6 +69,5 @@ export class OpencvComponent implements OnInit {
     mat.delete();
     faces.delete();
     grayMat.delete();
-    faceCascade.delete();
   }
 }
