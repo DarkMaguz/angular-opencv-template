@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { OpencvModule } from '../opencv.module';
 
 declare var cv: any;
-declare var Utils: any;
 
 @Component({
   selector: 'app-opencv',
