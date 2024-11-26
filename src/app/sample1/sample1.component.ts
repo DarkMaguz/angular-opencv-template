@@ -6,10 +6,10 @@ declare var cv: any;
 @Component({
   selector: 'app-sample1',
   templateUrl: './sample1.component.html',
-  styleUrl: './sample1.component.scss'
+  styleUrl: './sample1.component.scss',
+  standalone: true
 })
 export class Sample1Component {
-
 
   constructor() {
     OpencvModule.waitForOpenCv().finally(() => {

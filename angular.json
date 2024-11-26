@@ -103,12 +103,24 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "public/models",
+                "output": "models"
               }
             ],
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/opencv.js",
+              "src/assets/utils.js"
+            ],
+            "karmaConfig": "karma.conf.js",
+            "progress": false,
+            "watch": false,
+            "codeCoverage": true
           }
         }
       }
